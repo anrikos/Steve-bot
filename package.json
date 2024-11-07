@@ -1,0 +1,18 @@
+{
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "node-telegram-bot-api": "^0.66.0",
+        "puppeteer": "file:puppeteer-23.4.1.tgz"
+    },
+    "name": "telegram-bot_v.1.0",
+    "version": "1.0.0",
+    "main": "index2.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index2.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": ""
+}
