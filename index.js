@@ -14,15 +14,24 @@ const txtPath = `Routers_${currentDate}.txt`;
 let isParsing = false; // Flag for bot operation
 
 // /start command handler
+
 bot.onText(/\/start/, async (msg) => {
-    bot.sendMessage(msg.chat.id, 'Let_s start!');
-    await handleStart(msg);
+    if (!isParsing) {
+        isParsing = true; // Устанавливаем флаг выполнения
+
+        await bot.sendMessage(msg.chat.id, "Let's start!");
+        await handleStart(msg); // Вызов функции обработки
+
+        isParsing = false; // Сбрасываем флаг после завершения
+    } else {
+        await bot.sendMessage(msg.chat.id, 'Already processing, please wait.');
+    }
 });
 
 // /stop command handler
 bot.onText(/\/stop/, (msg) => {
-    isParsing = false; // set the parsing flag to false
-    bot.sendMessage(msg.chat.id, 'Let_s stop!');
+    isParsing = false; // Сбрасываем флаг парсинга
+    bot.sendMessage(msg.chat.id, "Let's stop!"); // Уведомление о прекращении
 });
 
 // Function for command processing
@@ -30,7 +39,7 @@ async function handleStart(msg) {
     const userChatId = msg.chat.id; // User ID for reply
     isParsing = true; // Set the parsing flag to true
     try {
-        const browser = await puppeteer.launch({ headless: false });
+        const browser = await puppeteer.launch({ headless: true });
         const page = await browser.newPage();
         await page.goto(SITE, {
             waitUntil: 'networkidle2',
